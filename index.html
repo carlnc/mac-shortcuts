@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>MacBoook Pro 2015 Keyboard Shortcuts</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.slim.min.js" integrity="sha256-ZaXnYkHGqIhqTbJ6MB4l9Frs/r7U4jlx7ir8PJYBqbI=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -8,7 +9,7 @@
     
 
     <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>    
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -23,95 +24,6 @@
         Filter: <input name="filter">
         <div id="table"></div>
     </div>
-
-    
-    <script>
-        const e = React.createElement;
-
-        const allShortcuts = [
-            {
-                app: 'macos',
-                groups: [
-                    {
-                        name: 'Windowing',
-                        shortcuts: [
-                            { mods: '⌃ ⌥ ⇧ ⌘', key: '↑ ∕ → ∕ ←', action: 'Display context menu', notes: 'Arrow direction depends on Dock placement' },
-                        ],
-                    }
-                ],
-            },
-        ];
-
-        class ShortcutsTable extends React.Component {
-            render() {
-                return e('table', null, [
-                    this.renderHead(),
-                    this.renderRows(),
-                ]);
-            }
-
-            getFilteredRows(filter) {
-                return allShortcuts;
-            }
-
-            renderHead() {
-                return e('thead', null, [
-                    e('tr', null, [
-                        e('th', { scope: 'col'}, 'mods'),
-                        e('th', { scope: 'col'}, 'key'),
-                        e('th', { scope: 'col'}, 'action'),
-                        e('th', { scope: 'col'}, 'notes'),
-                    ]),
-                ]);
-            }
-
-            renderRows() {
-                const shortcuts = this.getFilteredRows(undefined);
-
-                const trs = Object.values(shortcuts).map(shortcut => {
-                    const appName = shortcut.app;
-                    return [
-                        this.renderAppHeaderRow(appName),
-                        ...shortcut.groups.map(group => {
-                            return [
-                                this.renderGroupHeaderRow(appName, group.name),
-                                ...group.shortcuts.map(shortcut => {
-                                    return this.renderRow(appName, group.name, shortcut);
-                                }),
-                            ];
-                        }),
-                    ];
-                });
-
-                return e('tbody', null, trs);
-            }
-
-            renderAppHeaderRow(appName) {
-                return e('tr', null, [
-                    e('th', { colspan: '4' }, appName),
-                ]);
-            }
-            
-            renderGroupHeaderRow(appName, groupName) {
-                return e('tr', null, [
-                    e('th', { colspan: '4' }, groupName),
-                ]);
-            }
-
-            renderRow(appName, groupName, shortcut) {
-                const { mods, key, action, notes } = shortcut;
-                console.log({mods, key, action, notes});
-                return e('tr', null, [
-                    e('td', { className: 'text-nowrap' }, mods),
-                    e('td', { className: 'text-nowrap' }, key),
-                    e('td', null, action),
-                    e('td', null, notes),
-                ]);
-            }
-        }
-
-        ReactDOM.render(e(ShortcutsTable), document.getElementById('table'));
-    </script>
+    <script src="./app.js"></script>    
 </body>
-
 </html>
